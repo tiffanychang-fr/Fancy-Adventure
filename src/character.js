@@ -1,11 +1,11 @@
 class Player {
   constructor() {
-    this.x = 0;
+    this.x = -7;
     this.y = 0;
-    this.width = 32;
-    this.height = 32;
+    this.width = 64;
+    this.height = 64;
     this.velocity = 0;
-    this.floor = 368;
+    this.floor = 535;
   }
 
   preload() {
@@ -31,8 +31,8 @@ class Player {
   }
 
   movePlayer() {
-    if (this.x < 0) {
-      this.x = 0;
+    if (this.x < -7) {
+      this.x = -7;
     } else if (this.x > CANVAS_WIDTH - 32) {
       this.x = CANVAS_WIDTH - 32;
     }

@@ -1,6 +1,6 @@
 // BACKGROUND
-let CANVAS_WIDTH = 960;
-let CANVAS_HEIGHT = 512;
+let CANVAS_WIDTH = 960 * 1.5;
+let CANVAS_HEIGHT = 512 * 1.5;
 
 // KEYS
 const ARROW_RIGHT = 39;
@@ -22,5 +22,5 @@ const GRAVITY = 0.3;
 // let mushroomAnimation;
 
 // // OBJECT ANIMATIONS
-// let coin;
-// let coinAnimation;
+let coin;
+let coinAnimation;
