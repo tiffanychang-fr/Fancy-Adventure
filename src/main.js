@@ -2,7 +2,7 @@ const game = new Game();
 
 function setup() {
   const cnv = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-  cnv.position(70, 80);
+  // cnv.position(70, 110);
   // cnv.position((windowWidth - CANVAS_WIDTH) / 2, 80);
 }
 
