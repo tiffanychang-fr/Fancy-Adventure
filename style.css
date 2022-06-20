@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Press+Start+2P&display=swap");
+
+h1 {
+  font-family: "Nanum Pen Script";
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+#canvas {
+  display: flex;
+  justify-content: center;
+}
