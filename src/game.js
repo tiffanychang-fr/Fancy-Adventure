@@ -1,6 +1,7 @@
 class Game {
   constructor() {
     this.background = new Background();
+    this.map = new Map();
     this.player = new Player();
     this.balloon = new Balloon(520, 205);
     this.balloon2 = new Balloon(900, 495);
@@ -35,6 +36,7 @@ class Game {
     this.background.drawBackground();
     this.player.drawPlayer();
     this.player.movePlayer();
+    this.map.drawMap();
     this.balloon.drawBalloon();
     this.balloon2.drawBalloon();
     this.grape.drawGrape();
@@ -46,6 +48,29 @@ class Game {
     this.apple.drawApple();
     this.orange.drawOrange();
     this.orange2.drawOrange();
+
+    // Player-Platform Collision check
+    if (this.isCollidingOnPlatform(this.player)) {
+      this.landOnPlatform(this.player);
+    }
+  }
+
+  isCollidingOnPlatform(player) {
+    // repeat following logic on all the tiles
+    // following is hard code for testing the function
+    return (
+      player.x >= 64 &&
+      player.x <= 64 * 2.5 &&
+      player.y + player.height >= player.floor - 32 &&
+      player.y + player.height <= player.floor - 16
+    );
+  }
+
+  landOnPlatform(player) {
+    this.player.velocity = 0;
+    this.player.jumpCount = 0;
+    this.player.y = 450; // hard code for land y position
+    console.log("hit");
   }
 
   keyPressed() {

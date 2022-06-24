@@ -6,6 +6,7 @@ class Player {
     this.height = 64;
     this.velocity = 0;
     this.floor = 535;
+    this.canJump = true;
   }
 
   preload() {
@@ -26,6 +27,7 @@ class Player {
 
   keyPressed() {
     if (keyCode === SPACE_BAR) {
+      this.canJump = true;
       this.jump();
     }
   }
@@ -45,12 +47,15 @@ class Player {
   }
 
   jump() {
-    if (this.jumpCount === 2) {
-      return;
+    if (this.canJump == true) {
+      if (this.jumpCount === 2) {
+        return;
+      }
+      this.y -= 45;
+      this.velocity -= 5;
+      this.jumpCount++;
     }
-    this.y -= 20;
-    this.velocity -= 5;
-    this.jumpCount++;
+    // console.log(this.velocity);
   }
 
   ReachedTheGround() {

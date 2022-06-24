@@ -1,7 +1,7 @@
 class Background {
   constructor() {}
   preload() {
-    this.img = loadImage("./assets/background/bkg_spring.png");
+    this.img = loadImage("./assets/background/background.png");
   }
 
   drawBackground() {
