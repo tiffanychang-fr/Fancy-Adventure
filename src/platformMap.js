@@ -3,8 +3,8 @@
 
 class Map {
   constructor() {
-    this.tileWidth = 64;
-    this.tileHeight = 64;
+    this.tileWidth = SQUARE_SIDE;
+    this.tileHeight = SQUARE_SIDE;
   }
 
   drawMap() {

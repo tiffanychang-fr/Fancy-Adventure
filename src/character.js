@@ -2,10 +2,10 @@ class Player {
   constructor() {
     this.x = -7;
     this.y = 0;
-    this.width = 64;
-    this.height = 64;
+    this.width = 48;
+    this.height = 48;
     this.velocity = 0;
-    this.floor = 535;
+    this.floor = FLOOR;
     this.canJump = true;
   }
 
