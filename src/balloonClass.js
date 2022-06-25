@@ -1,5 +1,5 @@
 class Balloon {
-  constructor(x, y, startX, endX, isMovingRight = false) {
+  constructor(x, y, startX, endX, isMovingRight = true) {
     this.x = x;
     this.y = y;
     this.width = 80;
@@ -20,17 +20,17 @@ class Balloon {
     // Draw the ballon enemy moving path
 
     if (this.x > this.endX * SQUARE_SIDE) {
-      this.isMovingRight = true;
-    } else if (this.x <= this.startX * SQUARE_SIDE) {
       this.isMovingRight = false;
+    } else if (this.x <= this.startX * SQUARE_SIDE) {
+      this.isMovingRight = true;
     }
 
     if (
       this.x >= (this.startX - 0.7) * SQUARE_SIDE &&
-      this.isMovingRight == false
+      this.isMovingRight == true
     ) {
       this.x += this.speed;
-    } else if (this.isMovingRight == true) {
+    } else if (this.isMovingRight == false) {
       this.x -= this.speed;
     }
 
