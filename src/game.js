@@ -23,6 +23,7 @@ class Game {
     this.player.movePlayer();
     this.fruits.drawFruits();
     this.enemies.drawEnemies();
+    // this.enemies.moveEnemy(this.player);
 
     // Player-Platform Collision check
     this.isCollidingOnPlatform(this.player);
@@ -78,7 +79,7 @@ class Game {
         fruits.fruitArray.splice(index, 1);
         this.amountOfFruit++;
         FRUIT_COLLECTION.innerText = this.amountOfFruit;
-        if (this.amountOfFruit == 10) {
+        if (this.amountOfFruit == 2) {
           LEVEL1_RULE.innerText = ` ✅`;
         }
         // console.log(this.amountOfFruit);
