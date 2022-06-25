@@ -15,8 +15,16 @@ const SPACE_BAR = 32;
 const ENTER_KEY = 13;
 
 // VARIABLES
-
 const GRAVITY = 0.3;
+
+// FRUIT COLLECTION
+const FRUIT_COLLECTION = document.querySelector(".fruit-collection span");
+
+// LIFE
+const LIFE = document.querySelector(".life span");
+
+//
+LEVEL1_RULE = document.querySelector(".level1-rule span");
 
 // // PLAYER ANIMATIONS
 // let player;

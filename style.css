@@ -16,11 +16,28 @@ h1 {
   justify-content: center;
 }
 
-.footer {
+.subtitle {
   font-size: 2rem;
   margin: 1rem;
 }
 
 .fa-heart {
   font-size: 1.6rem;
+}
+
+.fruit-collection {
+  font-size: 2rem;
+}
+
+.fruit-collection span {
+  color: green;
+}
+
+.life span {
+  color: red;
+}
+
+p {
+  font-size: 2rem;
+  margin: 0;
 }

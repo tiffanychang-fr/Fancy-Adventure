@@ -40,9 +40,9 @@ class Player {
     }
 
     if (keyIsDown(ARROW_RIGHT)) {
-      this.x += 2;
+      this.x += 3;
     } else if (keyIsDown(ARROW_LEFT)) {
-      this.x -= 2;
+      this.x -= 3;
     }
   }
 

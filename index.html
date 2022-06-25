@@ -19,10 +19,21 @@
   <body>
     <h1>Fancy Adventure is a platform game made with p5.js</h1>
     <div class="display"></div>
-    <div id="canvas"></div>
-    <div class="footer">
+    <p class="level1-rule">
+      <b>Level 1: Collect all the fruits and do not touch the enemy</b
+      ><span></span>
+    </p>
+    <div class="subtitle">
       <span>Built by Tiffany Chang <i class="fas fa-heart"></i></span>
+      <span class="fruit-collection"
+        >Fruit collection: <b><span>0</span>/10</b></span
+      >
+      <span class="life"
+        >Life: <b><span>3</span>/3</b></span
+      >
     </div>
+
+    <div id="canvas"></div>
     <script src="constants.js"></script>
     <script src="src/background.js"></script>
     <script src="src/platformMap.js"></script>
@@ -32,6 +43,7 @@
     <script src="src/pearClass.js"></script>
     <script src="src/grapeClass.js"></script>
     <script src="src/balloonClass.js"></script>
+    <script src="src/enemiesClass.js"></script>
     <script src="src/fruitsClass.js"></script>
     <script src="src/character.js"></script>
     <script src="src/game.js"></script>

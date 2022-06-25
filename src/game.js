@@ -3,17 +3,17 @@ class Game {
     this.background = new Background();
     this.map = new Map();
     this.player = new Player();
-    this.balloon = new Balloon(520, 210);
-    this.balloon2 = new Balloon(900, 590);
     this.fruits = new Fruits();
+    this.enemies = new Enemies();
+    this.amountOfFruit = 0;
+    this.amountOfLives = 3;
   }
 
   preload() {
     this.background.preload();
     this.player.preload();
-    this.balloon.preload();
-    this.balloon2.preload();
     this.fruits.preload();
+    this.enemies.preload();
   }
 
   play() {
@@ -21,13 +21,13 @@ class Game {
     this.drawGrid(); // only for checking the tile position
     this.player.drawPlayer();
     this.player.movePlayer();
-    this.balloon.drawBalloon();
-    this.balloon2.drawBalloon();
     this.fruits.drawFruits();
+    this.enemies.drawEnemies();
 
     // Player-Platform Collision check
     this.isCollidingOnPlatform(this.player);
     this.isCollidingFruit(this.player, this.fruits);
+    this.isCollidingEnemy(this.player, this.enemies);
   }
 
   isCollidingOnPlatform(player) {
@@ -76,8 +76,31 @@ class Game {
         player.y <= fruit.y + (1 / 2) * SQUARE_SIDE
       ) {
         fruits.fruitArray.splice(index, 1);
-        console.log("collect the fruit");
-        console.log(this.fruitArray);
+        this.amountOfFruit++;
+        FRUIT_COLLECTION.innerText = this.amountOfFruit;
+        if (this.amountOfFruit == 10) {
+          LEVEL1_RULE.innerText = ` ✅`;
+        }
+        // console.log(this.amountOfFruit);
+        // console.log("collect the fruit");
+      }
+    });
+  }
+
+  isCollidingEnemy(player, enemies) {
+    enemies.enemyArray.forEach((enemy, index) => {
+      if (
+        player.x >= enemy.x - (1 / 2) * SQUARE_SIDE &&
+        player.x <= enemy.x + (1 / 2) * SQUARE_SIDE &&
+        player.y >= enemy.y - (1 / 3) * SQUARE_SIDE &&
+        player.y <= enemy.y + 1 * SQUARE_SIDE
+      ) {
+        player.x = 0;
+        player.y = FLOOR;
+        this.amountOfLives--;
+        LIFE.innerText = this.amountOfLives;
+
+        // console.log("life loss");
       }
     });
   }

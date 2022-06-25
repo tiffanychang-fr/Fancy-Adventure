@@ -10,7 +10,7 @@ class Balloon {
     this.img = loadImage("./assets/enemies/yellow_balloon.png");
   }
 
-  drawBalloon() {
+  drawEnemy() {
     image(this.img, this.x, this.y, this.width, this.height);
   }
 }
