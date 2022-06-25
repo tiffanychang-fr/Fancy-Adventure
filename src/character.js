@@ -1,6 +1,6 @@
 class Player {
   constructor() {
-    this.x = -7;
+    this.x = 0;
     this.y = 0;
     this.width = 48;
     this.height = 48;
@@ -51,8 +51,8 @@ class Player {
       if (this.jumpCount === 2) {
         return;
       }
-      this.y -= 45;
-      this.velocity -= 5;
+      this.y -= 50;
+      this.velocity -= 6;
       this.jumpCount++;
     }
     // console.log(this.velocity);

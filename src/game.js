@@ -39,7 +39,6 @@ class Game {
     this.drawGrid(); // only for checking the tile position
     this.player.drawPlayer();
     this.player.movePlayer();
-    this.map.drawMap();
     this.balloon.drawBalloon();
     this.balloon2.drawBalloon();
     this.grape.drawGrape();
@@ -54,28 +53,49 @@ class Game {
     this.orange2.drawOrange();
 
     // Player-Platform Collision check
-    if (this.isCollidingOnPlatform(this.player)) {
-      this.landOnPlatform(this.player);
-    }
+    this.isCollidingOnPlatform(this.player);
+    // if (this.isCollidingOnPlatform(this.player)) {
+    //   this.landOnPlatform(this.player);
+    // }
   }
 
   isCollidingOnPlatform(player) {
-    // repeat following logic on all the tiles
+    // repeat logic on all the tiles
+    this.map.lands.forEach((land) => {
+      // player.x == land[0] && player.y == land[1]
+      if (
+        player.x >= SQUARE_SIDE * land[0] - (2 / 3) * player.width &&
+        player.x <= SQUARE_SIDE * land[0] + (2 / 3) * player.width &&
+        player.y + player.height >= SQUARE_SIDE * land[1] &&
+        player.y + player.height <= SQUARE_SIDE * (land[1] + 0.3)
+      ) {
+        this.landOnPlatform(player, land[1] - 1);
+      }
+    });
+
     // following is hard code for testing the function
-    return (
-      player.x >= SQUARE_SIDE * 2 - (2 / 3) * player.width &&
-      player.x <= SQUARE_SIDE * 3 + (2 / 3) * player.width &&
-      player.y + player.height >= SQUARE_SIDE * 11 &&
-      player.y + player.height <= SQUARE_SIDE * 12 + 5
-    );
+    // return (
+    //   player.x >= SQUARE_SIDE * 2 - (2 / 3) * player.width &&
+    //   player.x <= SQUARE_SIDE * 2 + (2 / 3) * player.width &&
+    //   player.y + player.height >= SQUARE_SIDE * 11 &&
+    //   player.y + player.height <= SQUARE_SIDE * 12 + 5
+    // );
   }
 
-  landOnPlatform(player) {
-    this.player.velocity = 0;
-    this.player.jumpCount = 0;
-    this.player.y = SQUARE_SIDE * 11; // hard code for land y position
+  landOnPlatform(player, landY) {
+    player.velocity = 0;
+    player.jumpCount = 0;
+    player.y = SQUARE_SIDE * landY; // hard code for land y position
     // console.log("hit");
   }
+
+  // willFallCheck(player) {
+  //   let willFall =
+  //     this.map.cliffs.filter((cliff) => {
+  //       player.x == cliff[0] && player.y == cliff[1];
+  //     }).length > 0;
+  //   return willFall;
+  // }
 
   // only for checking the tile position
   drawGrid() {
