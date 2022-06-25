@@ -10,7 +10,11 @@ class Apple {
     this.img = loadImage("./assets/objects/apple.png");
   }
 
-  drawApple() {
+  // collectFruit() {
+  //   tint(0, 153, 204, 126);
+  // }
+
+  drawFruit() {
     image(this.img, this.x, this.y, this.width, this.height);
   }
 }

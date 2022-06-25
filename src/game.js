@@ -5,16 +5,7 @@ class Game {
     this.player = new Player();
     this.balloon = new Balloon(520, 210);
     this.balloon2 = new Balloon(900, 590);
-    this.grape = new Grape(340, 450);
-    this.grape2 = new Grape(960, 400);
-    this.pear = new Pear(195, 330);
-    this.pear2 = new Pear(1200, 185);
-    this.plum = new Plum(145, 190);
-    this.plum2 = new Plum(1105, 332);
-    this.plum3 = new Plum(770, 480);
-    this.apple = new Apple(1390, 330);
-    this.orange = new Orange(435, 235);
-    this.orange2 = new Orange(1295, 480);
+    this.fruits = new Fruits();
   }
 
   preload() {
@@ -22,16 +13,7 @@ class Game {
     this.player.preload();
     this.balloon.preload();
     this.balloon2.preload();
-    this.grape.preload();
-    this.grape2.preload();
-    this.pear.preload();
-    this.pear2.preload();
-    this.plum.preload();
-    this.plum2.preload();
-    this.plum3.preload();
-    this.apple.preload();
-    this.orange.preload();
-    this.orange2.preload();
+    this.fruits.preload();
   }
 
   play() {
@@ -41,22 +23,11 @@ class Game {
     this.player.movePlayer();
     this.balloon.drawBalloon();
     this.balloon2.drawBalloon();
-    this.grape.drawGrape();
-    this.grape2.drawGrape();
-    this.pear.drawPear();
-    this.pear2.drawPear();
-    this.plum.drawPlum();
-    this.plum2.drawPlum();
-    this.plum3.drawPlum();
-    this.apple.drawApple();
-    this.orange.drawOrange();
-    this.orange2.drawOrange();
+    this.fruits.drawFruits();
 
     // Player-Platform Collision check
     this.isCollidingOnPlatform(this.player);
-    // if (this.isCollidingOnPlatform(this.player)) {
-    //   this.landOnPlatform(this.player);
-    // }
+    this.isCollidingFruit(this.player, this.fruits);
   }
 
   isCollidingOnPlatform(player) {
@@ -85,17 +56,31 @@ class Game {
   landOnPlatform(player, landY) {
     player.velocity = 0;
     player.jumpCount = 0;
-    player.y = SQUARE_SIDE * landY; // hard code for land y position
-    // console.log("hit");
+    player.y = SQUARE_SIDE * landY;
   }
 
-  // willFallCheck(player) {
-  //   let willFall =
-  //     this.map.cliffs.filter((cliff) => {
-  //       player.x == cliff[0] && player.y == cliff[1];
-  //     }).length > 0;
-  //   return willFall;
+  // fallInWater(player, cliffY) {
+  //   while (player.y >= WATER_LEVEL) {
+  //     player.velocity += GRAVITY;
+  //     player.y += player.velocity;
+  //   }
   // }
+
+  // collect fruits
+  isCollidingFruit(player, fruits) {
+    fruits.fruitArray.forEach((fruit, index) => {
+      if (
+        player.x >= fruit.x - (1 / 2) * SQUARE_SIDE &&
+        player.x <= fruit.x + (1 / 2) * SQUARE_SIDE &&
+        player.y >= fruit.y - (1 / 2) * SQUARE_SIDE &&
+        player.y <= fruit.y + (1 / 2) * SQUARE_SIDE
+      ) {
+        fruits.fruitArray.splice(index, 1);
+        console.log("collect the fruit");
+        console.log(this.fruitArray);
+      }
+    });
+  }
 
   // only for checking the tile position
   drawGrid() {

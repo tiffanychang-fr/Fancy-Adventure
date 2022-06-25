@@ -10,7 +10,7 @@ class Pear {
     this.img = loadImage("./assets/objects/pear.png");
   }
 
-  drawPear() {
+  drawFruit() {
     image(this.img, this.x, this.y, this.width, this.height);
   }
 }

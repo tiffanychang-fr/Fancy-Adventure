@@ -10,7 +10,7 @@ class Orange {
     this.img = loadImage("./assets/objects/orange.png");
   }
 
-  drawOrange() {
+  drawFruit() {
     image(this.img, this.x, this.y, this.width, this.height);
   }
 }

@@ -10,7 +10,7 @@ class Plum {
     this.img = loadImage("./assets/objects/plum.png");
   }
 
-  drawPlum() {
+  drawFruit() {
     image(this.img, this.x, this.y, this.width, this.height);
   }
 }

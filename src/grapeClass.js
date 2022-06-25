@@ -10,7 +10,13 @@ class Grape {
     this.img = loadImage("./assets/objects/grape.png");
   }
 
-  drawGrape() {
+  // collectFruit() {
+  //   push();
+  //   tint(255, 126);
+  //   pop();
+  // }
+
+  drawFruit() {
     image(this.img, this.x, this.y, this.width, this.height);
   }
 }
