@@ -26,24 +26,86 @@ class Game {
     // this.enemies.moveEnemy(this.player);
 
     // Player-Platform Collision check
-    this.isCollidingOnPlatform(this.player);
+    this.TileTypeCheck(this.player);
+    // this.isCollidingOnPlatform(this.player);
     this.isCollidingFruit(this.player, this.fruits);
     this.isCollidingEnemy(this.player, this.enemies);
   }
 
-  isCollidingOnPlatform(player) {
-    // repeat logic on all the tiles
-    this.map.lands.forEach((land) => {
-      // player.x == land[0] && player.y == land[1]
-      if (
-        player.x >= SQUARE_SIDE * land[0] - (2 / 3) * player.width &&
-        player.x <= SQUARE_SIDE * land[0] + (2 / 3) * player.width &&
-        player.y + player.height >= SQUARE_SIDE * land[1] &&
-        player.y + player.height <= SQUARE_SIDE * (land[1] + 0.3)
-      ) {
-        this.landOnPlatform(player, land[1] - 1);
+  landOnPlatform(player, landingY) {
+    player.velocity = 0;
+    player.jumpCount = 0;
+    player.y = SQUARE_SIDE * landingY;
+  }
+
+  // If colliding on type 1 tile
+  isCollidingTileType1(player, positionX, positionY) {
+    // landing
+    if (
+      player.x >= SQUARE_SIDE * positionX - (2 / 3) * player.width &&
+      player.x <= SQUARE_SIDE * positionX + (2 / 3) * player.width &&
+      player.y + player.height >= SQUARE_SIDE * (positionY + 1) &&
+      player.y + player.height <= SQUARE_SIDE * (positionY + 1.15)
+    ) {
+      this.landOnPlatform(player, positionY);
+    }
+
+    // check left, right, top tile type
+    // check if there is left || right || top tile
+    let leftTileType, rightTileType, topTileType;
+    if (positionX == 0) {
+      leftTileType = 2;
+      rightTileType = this.map.tiles[positionX + 1][positionY];
+    } else if (positionX == this.map.tiles.length) {
+      leftTileType = this.map.tiles[positionX - 1][positionY];
+      rightTileType = 2;
+    } else if (positionX >= 1 && positionX < this.map.tiles.length) {
+      leftTileType = this.map.tiles[positionX - 1][positionY];
+      rightTileType = this.map.tiles[positionX + 1][positionY];
+    }
+
+    if (positionY == 0) {
+      topTileType = 2;
+    } else {
+      topTileType = this.map.tiles[positionX][positionY - 1];
+    }
+
+    // leftTileType = this.map.tiles[positionX - 1][positionY];
+    // rightTileType = this.map.tiles[positionX + 1][positionY];
+    // topTileType = this.map.tiles[positionX][positionY - 1];
+    // console.log(leftTileType, rightTileType, topTileType);
+
+    // check if left side is free
+    if (leftTileType == 0 || leftTileType == 1) {
+      return;
+      // console.log("left side is free");
+    } else if (leftTileType == 2) {
+      if (this.isCollidingLeftTileType2(player, positionX, positionY)) {
+        // console.log("I am colliding left wall");
+        // player.x = SQUARE_SIDE * positionX - 0.3 * player.width;
       }
-    });
+      // console.log("left side is blocked");
+    }
+
+    // check if right side is free
+    if (rightTileType == 0 || rightTileType == 1) {
+      return;
+      // console.log("right side is free");
+    } else if (rightTileType == 2) {
+      if (this.isCollidingRightTileType2(player, positionX, positionY)) {
+        // console.log("I am colliding left wall");
+        // player.x = SQUARE_SIDE * positionX + 0.3 * player.width;
+      }
+      // console.log("right side is blocked");
+    }
+
+    // check if top is free
+    if (topTileType == 2) {
+      if (this.isCollidingTopTileType2(player, positionX, positionY)) {
+        player.y = SQUARE_SIDE * positionY;
+      }
+      // console.log("top side is blocked");
+    }
 
     // following is hard code for testing the function
     // return (
@@ -54,10 +116,46 @@ class Game {
     // );
   }
 
-  landOnPlatform(player, landY) {
-    player.velocity = 0;
-    player.jumpCount = 0;
-    player.y = SQUARE_SIDE * landY;
+  // this method has issue, try to fix it
+  // If colliding on type 2 tile
+  isCollidingLeftTileType2(player, positionX, positionY) {
+    player.x <= SQUARE_SIDE * positionX - 0.3 * player.width ? true : false;
+    // player.x = SQUARE_SIDE * positionX - 0.3 * player.width;
+  }
+
+  isCollidingRightTileType2(player, positionX, positionY) {
+    player.x <= SQUARE_SIDE * positionX + 0.3 * player.width ? true : false;
+    // player.x = SQUARE_SIDE * positionX + 0.3 * player.width;
+  }
+
+  isCollidingTopTileType2(player, positionX, positionY) {
+    player.y <= positionY + 0.3 ? true : false;
+    // player.y = SQUARE_SIDE * positionY;
+  }
+
+  TileTypeCheck(player) {
+    let positionX = Math.floor(
+      (player.x + (2 / 3) * player.width) / SQUARE_SIDE
+    );
+    let positionY = Math.floor(
+      (player.y + (2 / 3) * player.width) / SQUARE_SIDE
+    );
+    let tileType = this.map.tiles[positionX][positionY];
+    // console.log(positionX, positionY, tileType);
+
+    // 0: can fall; 1: can land on; 2: cannot jump through
+    if (tileType == 0) {
+      return;
+      // console.log("type 0");
+    } else if (tileType == 1) {
+      // console.log("tile 1");
+      this.isCollidingTileType1(player, positionX, positionY);
+    } else if (tileType == 2) {
+      return;
+      // console.log("tile 2");
+      // cannot enter to this tile
+      // this.isCollidingTileType2(player, collisionX, collisionY);
+    }
   }
 
   // fallInWater(player, cliffY) {
@@ -109,7 +207,7 @@ class Game {
   // only for checking the tile position
   drawGrid() {
     for (let i = 0; i <= CANVAS_WIDTH; i += SQUARE_SIDE) {
-      for (let j = 0; j < CANVAS_HEIGHT; j += SQUARE_SIDE) {
+      for (let j = 0; j <= CANVAS_HEIGHT; j += SQUARE_SIDE) {
         //horizontal lines
         line(0, j, CANVAS_WIDTH, j);
         //vertical lines
