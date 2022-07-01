@@ -6,9 +6,9 @@ class Player {
     this.height = SQUARE_SIDE;
     this.leftFoot = (1 / 3) * SQUARE_SIDE;
     this.rightFoot = (2 / 3) * SQUARE_SIDE;
+    this.bodyMiddle = (1 / 2) * SQUARE_SIDE;
     this.velocity = 0;
     this.floor = STARTING_FLOOR;
-    this.canJump = true;
   }
 
   preload() {
@@ -16,9 +16,10 @@ class Player {
   }
 
   drawPlayer() {
+    image(this.img, this.x, this.y, this.width, this.height);
+
     this.velocity += GRAVITY;
     this.y += this.velocity;
-    image(this.img, this.x, this.y, this.width, this.height);
 
     // draw starting floor and water floor
     if (this.x <= SQUARE_SIDE) {
@@ -38,7 +39,6 @@ class Player {
 
   keyPressed() {
     if (keyCode === SPACE_BAR) {
-      this.canJump = true;
       this.jump();
     }
   }
@@ -58,16 +58,14 @@ class Player {
   }
 
   jump() {
-    if (this.canJump == true) {
-      if (this.jumpCount === 2) {
-        return;
-      }
-      this.y -= 50;
-      this.velocity -= 6;
-      this.jumpCount++;
+    if (this.jumpCount === 2) {
+      return;
     }
-    // console.log(this.velocity);
+    this.y -= 50;
+    this.velocity -= 6;
+    this.jumpCount++;
   }
+  // console.log(this.velocity);
 
   ReachedTheGround() {
     return this.y >= this.floor;
