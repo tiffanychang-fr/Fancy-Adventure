@@ -2,10 +2,12 @@ class Player {
   constructor() {
     this.x = 0;
     this.y = 0;
-    this.width = 48;
-    this.height = 48;
+    this.width = SQUARE_SIDE;
+    this.height = SQUARE_SIDE;
+    this.leftFoot = (1 / 3) * SQUARE_SIDE;
+    this.rightFoot = (2 / 3) * SQUARE_SIDE;
     this.velocity = 0;
-    this.floor = FLOOR;
+    this.floor = STARTING_FLOOR;
     this.canJump = true;
   }
 
@@ -18,11 +20,20 @@ class Player {
     this.y += this.velocity;
     image(this.img, this.x, this.y, this.width, this.height);
 
+    // draw starting floor and water floor
+    if (this.x <= SQUARE_SIDE) {
+      this.floor = STARTING_FLOOR;
+    } else {
+      this.floor = WATER_FLOOR;
+    }
+
     if (this.ReachedTheGround()) {
       this.y = this.floor;
       this.velocity = 0;
       this.jumpCount = 0;
     }
+    this.leftFoot = this.x + (1 / 3) * this.width;
+    this.rightFoot = this.x + (2 / 3) * this.width;
   }
 
   keyPressed() {
@@ -32,16 +43,16 @@ class Player {
     }
   }
 
-  movePlayer() {
+  movePlayer(isCollidingLefttWall, isCollidingRightWall) {
     if (this.x < -7) {
       this.x = -7;
     } else if (this.x > CANVAS_WIDTH - 32) {
       this.x = CANVAS_WIDTH - 32;
     }
 
-    if (keyIsDown(ARROW_RIGHT)) {
+    if (!isCollidingRightWall && keyIsDown(ARROW_RIGHT)) {
       this.x += 3;
-    } else if (keyIsDown(ARROW_LEFT)) {
+    } else if (!isCollidingLefttWall && keyIsDown(ARROW_LEFT)) {
       this.x -= 3;
     }
   }
@@ -60,5 +71,10 @@ class Player {
 
   ReachedTheGround() {
     return this.y >= this.floor;
+  }
+
+  resurrect() {
+    this.x = 0;
+    this.y = 0;
   }
 }
