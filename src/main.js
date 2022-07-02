@@ -1,36 +1,46 @@
-const game = new Game();
+// Initializing the level classes
+const levelOne = new LevelOne();
+const levelTwo = new LevelTwo();
+
+// Initializing the level
+let levelOneCompleted = false;
+let levelTwoCompleted = false;
 
 function setup() {
   const cnv = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-  // cnv.position(70, 110);
-  // cnv.position((windowWidth - CANVAS_WIDTH) / 2, 80);
 }
 
 function draw() {
   clear();
-  game.play();
-  // animation(playerAnimation, 30, 230);
-  // animation(dinoAnimation, 30, 230);
-  // animation(mushroomAnimation, 300, 100);
-  // animation(coinAnimation, 80, 200);
+
+  // Level Missions
+  if (level === "level 1") {
+    MISSION.innerText = `Mission 1 : Collect all the fruits and do not touch the balloons`;
+  } else if (level === "level 2") {
+    MISSION.innerText = `Mission 2 : Collect all the fruits and do not touch the balloons`;
+  }
+
+  // Level 1: If the player completes mission and touch the win points then move on to level 2
+  if (levelOne.missionCompleted == true && levelOne.reachWinPoint == true) {
+    levelOneCompleted = true;
+    level = "level 2";
+    levelTwo.amountOfFruit = 0;
+    FRUIT_COLLECTION.innerText = this.amountOfFruit;
+  }
+
+  if (level === "level 1") {
+    levelOne.play();
+  } else if (level === "level 2") {
+    levelTwo.play();
+  }
 }
 
 function preload() {
-  game.preload();
-
-  //loading spritesheets
-  // player = loadSpriteSheet("./assets/player/finn.png", 32, 32, 24);
-  // dino = loadSpriteSheet("./assets/player/dinoGreen.png", 24.1, 24, 24);
-  // mushroom = loadSpriteSheet("./assets/enemy/mushroom_f.png", 24, 24, 4);
-  // coin = loadSpriteSheet("./assets/objects/coin.png", 16, 16, 12);
-
-  //loading animations
-  // playerAnimation = loadAnimation(player);
-  // dinoAnimation = loadAnimation(dino);
-  // mushroomAnimation = loadAnimation(mushroom);
-  // coinAnimation = loadAnimation(coin);
+  levelOne.preload();
+  levelTwo.preload();
 }
 
 function keyPressed() {
-  game.keyPressed();
+  levelOne.keyPressed();
+  levelTwo.keyPressed();
 }

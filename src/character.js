@@ -22,7 +22,7 @@ class Player {
     this.y += this.velocity;
 
     // draw starting floor and water floor
-    if (this.x <= SQUARE_SIDE) {
+    if (this.x <= SQUARE_SIDE || this.x >= CANVAS_WIDTH - 40) {
       this.floor = STARTING_FLOOR;
     } else {
       this.floor = WATER_FLOOR;
@@ -46,8 +46,8 @@ class Player {
   movePlayer(isCollidingLefttWall, isCollidingRightWall) {
     if (this.x < -7) {
       this.x = -7;
-    } else if (this.x > CANVAS_WIDTH - 32) {
-      this.x = CANVAS_WIDTH - 32;
+    } else if (this.x > CANVAS_WIDTH - 40) {
+      this.x = CANVAS_WIDTH - 40;
     }
 
     if (!isCollidingRightWall && keyIsDown(ARROW_RIGHT)) {

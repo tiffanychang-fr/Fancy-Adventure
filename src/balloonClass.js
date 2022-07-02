@@ -11,7 +11,7 @@ class Balloon {
   }
 
   preload() {
-    this.img = loadImage("./assets/enemies/yellow_balloon.png");
+    this.img = loadImage("./assets/enemies/yellow_balloon_angry.png");
   }
 
   drawEnemy() {

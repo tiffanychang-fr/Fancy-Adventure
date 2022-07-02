@@ -1,4 +1,4 @@
-class Game {
+class LevelTwo {
   constructor() {
     this.background = new Background();
     this.map = new Map();
@@ -12,6 +12,8 @@ class Game {
     this.isCollidingLeftWall = false;
     this.isCollidingTopWall = false;
     this.isCollidingRightWall = false;
+    this.missionCompleted = false;
+    this.reachWinPoint = false;
   }
 
   preload() {
@@ -22,11 +24,11 @@ class Game {
   }
 
   play() {
-    this.background.drawBackground();
+    this.background.drawBackground("level 2");
     this.drawGrid(); // only for checking the tile position
     this.player.drawPlayer();
-    this.fruits.drawFruits();
-    this.enemies.drawEnemies();
+    // this.fruits.drawFruits();
+    // this.enemies.drawEnemies();
     this.restart();
 
     // Player-Platform Collision check
@@ -34,6 +36,7 @@ class Game {
     this.isCollidingFruit(this.player, this.fruits);
     this.isCollidingEnemy(this.player, this.enemies);
     this.isCollidingWater(this.player);
+    this.isCollidingWinPoint(this.player);
     this.player.movePlayer(this.isCollidingLeftWall, this.isCollidingRightWall);
   }
 
@@ -77,7 +80,7 @@ class Game {
   TileTypeCheck(player) {
     this.positionX = Math.floor(player.rightFoot / SQUARE_SIDE);
     this.positionY = Math.floor(player.y / SQUARE_SIDE);
-    let tileType = this.map.tiles[this.positionX][this.positionY];
+    let tileType = this.map.levelTwoTiles[this.positionX][this.positionY];
 
     // 0: can fall; 1: can land on; 2: cannot jump through
     if (tileType == 0) {
@@ -90,7 +93,7 @@ class Game {
       this.isCollidingRightWall = false;
       this.isCollidingTileType1(player, this.positionX, this.positionY);
     } else if (tileType == 2) {
-      // colliding wall of player's right side
+      // // colliding wall of player's right side
       if (
         player.rightFoot > SQUARE_SIDE * this.positionX &&
         player.leftFoot < SQUARE_SIDE * this.positionX + 0.1 * SQUARE_SIDE
@@ -102,7 +105,7 @@ class Game {
         if (
           this.isCollidingRightWall &&
           this.positionX - 1 !== "undefined" &&
-          this.map.tiles[this.positionX - 1][this.positionY] == 1
+          this.map.levelTwoTiles[this.positionX - 1][this.positionY] == 1
         ) {
           this.landOnPlatform(player, this.positionY);
         }
@@ -120,7 +123,7 @@ class Game {
         if (
           this.isCollidingLeftWall &&
           this.positionX + 1 !== "undefined" &&
-          this.map.tiles[this.positionX + 1][this.positionY] == 1
+          this.map.levelTwoTiles[this.positionX + 1][this.positionY] == 1
         ) {
           this.landOnPlatform(player, this.positionY);
         }
@@ -139,25 +142,28 @@ class Game {
 
   // collect fruits
   isCollidingFruit(player, fruits) {
-    fruits.fruitArray.forEach((fruit, index) => {
+    fruits.fruitArray_levelOne.forEach((fruit, index) => {
       if (
         player.x >= fruit.x - (1 / 2) * SQUARE_SIDE &&
         player.x <= fruit.x + (1 / 2) * SQUARE_SIDE &&
         player.y >= fruit.y - (1 / 2) * SQUARE_SIDE &&
         player.y <= fruit.y + (1 / 2) * SQUARE_SIDE
       ) {
-        fruits.fruitArray.splice(index, 1);
+        fruits.fruitArray_levelOne.splice(index, 1);
         this.amountOfFruit++;
         FRUIT_COLLECTION.innerText = this.amountOfFruit;
-        if (this.amountOfFruit == 10) {
-          LEVEL1_RULE.innerText = ` ✅`;
+        if (this.amountOfFruit >= 1) {
+          MISSION_COMPLETED.innerText = ` ✅`;
+          this.missionCompleted = true;
+        } else {
+          this.missionCompleted = false;
         }
       }
     });
   }
 
   isCollidingEnemy(player, enemies) {
-    enemies.enemyArray.forEach((enemy, index) => {
+    enemies.enemyArray_levelOne.forEach((enemy, index) => {
       if (
         player.x >= enemy.x - (1 / 2) * SQUARE_SIDE &&
         player.x <= enemy.x + (1 / 2) * SQUARE_SIDE &&
@@ -182,9 +188,22 @@ class Game {
     }
   }
 
+  isCollidingWinPoint(player) {
+    if (
+      player.x + (2 / 3) * SQUARE_SIDE >= WIN_POINT_X &&
+      player.x + (2 / 3) * SQUARE_SIDE <= WIN_POINT_X + SQUARE_SIDE &&
+      player.y + SQUARE_SIDE >= WIN_POINT_Y &&
+      player.y <= WIN_POINT_Y + SQUARE_SIDE
+    ) {
+      this.reachWinPoint = true;
+    } else {
+      this.reachWinPoint = false;
+    }
+  }
+
   // only for checking the tile position
   drawGrid() {
-    stroke("#383838");
+    stroke(LINE_COLOR);
     for (let i = 0; i <= CANVAS_WIDTH; i += SQUARE_SIDE) {
       for (let j = 0; j <= CANVAS_HEIGHT; j += SQUARE_SIDE) {
         //horizontal lines
