@@ -27,6 +27,14 @@ h1 {
   font-size: 1.6rem;
 }
 
+.coin {
+  font-size: 2rem;
+}
+
+.coin span {
+  color: goldenrod;
+}
+
 .fruit-collection {
   font-size: 2rem;
 }

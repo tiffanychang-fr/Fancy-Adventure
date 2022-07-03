@@ -25,13 +25,40 @@ class Fruits {
     this.fruitArray_levelOne.push(this.orange2);
 
     // Level 2 fruits objects
+    this.fruitArray_levelTwo = [];
+    this.grape = new Grape(340, 335, 6.7, 6.9);
+    this.grape2 = new Grape(960, 328, 6.7, 6.9);
+    this.purple_grape = new Grape2(672, 380, 7.8, 8.0);
+    this.green_grape = new Grape3(960, 630, 13.1, 13.2);
+    this.pear = new Pear(195, 280, 5.7, 5.9);
+    this.pear2 = new Pear(1345, 280, 5.7, 5.9);
+    this.plum1 = new Plum(1055, 332, 6.7, 6.9);
+    this.apple = new Apple(240, 580, 11.9, 12.1);
+    this.orange = new Orange(430, 235, 4.8, 5);
+    this.orange2 = new Orange(865, 525, 10.8, 11);
+
+    this.fruitArray_levelTwo.push(this.grape);
+    this.fruitArray_levelTwo.push(this.grape2);
+    this.fruitArray_levelTwo.push(this.purple_grape);
+    this.fruitArray_levelTwo.push(this.green_grape);
+    this.fruitArray_levelTwo.push(this.pear);
+    this.fruitArray_levelTwo.push(this.pear2);
+    this.fruitArray_levelTwo.push(this.plum1);
+    this.fruitArray_levelTwo.push(this.apple);
+    this.fruitArray_levelTwo.push(this.orange);
+    this.fruitArray_levelTwo.push(this.orange2);
   }
 
   preload() {
     this.fruitArray_levelOne.forEach((fruit) => fruit.preload());
+    this.fruitArray_levelTwo.forEach((fruit) => fruit.preload());
   }
 
   drawFruits() {
-    this.fruitArray_levelOne.forEach((fruit) => fruit.drawFruit());
+    if (level === "level 1") {
+      this.fruitArray_levelOne.forEach((fruit) => fruit.drawFruit());
+    } else if (level === "level 2") {
+      this.fruitArray_levelTwo.forEach((fruit) => fruit.drawFruit());
+    }
   }
 }

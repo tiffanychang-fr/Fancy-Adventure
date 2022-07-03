@@ -15,17 +15,15 @@ function draw() {
 
   // Level Missions
   if (level === "level 1") {
-    MISSION.innerText = `Mission 1 : Collect all the fruits and do not touch the balloons`;
+    MISSION.innerText = `Mission 1 : Collect at least 6 fruits. Do not touch the balloons.`;
   } else if (level === "level 2") {
-    MISSION.innerText = `Mission 2 : Collect all the fruits and do not touch the balloons`;
+    MISSION.innerText = `Mission 2 : Collect 6 fruits and 6 coins. Do not touch the balloons.`;
   }
 
   // Level 1: If the player completes mission and touch the win points then move on to level 2
   if (levelOne.missionCompleted == true && levelOne.reachWinPoint == true) {
     levelOneCompleted = true;
     level = "level 2";
-    levelTwo.amountOfFruit = 0;
-    FRUIT_COLLECTION.innerText = this.amountOfFruit;
   }
 
   if (level === "level 1") {

@@ -22,6 +22,9 @@ const GRAVITY = 0.3;
 const GRAVITY_IN_WATER = 0.1;
 let level = "level 1";
 
+// COIN
+const COIN = document.querySelector(".coin span");
+
 // FRUIT COLLECTION
 const FRUIT_COLLECTION = document.querySelector(".fruit-collection span");
 
@@ -30,7 +33,8 @@ const LIFE = document.querySelector(".life span");
 
 // SUBTITLE
 MISSION = document.querySelector(".mission b");
-MISSION_COMPLETED = document.querySelector(".mission span");
+RICHNESS = document.querySelector(".mission .coin-emoji");
+MISSION_COMPLETED = document.querySelector(".mission .mission-completed-emoji");
 
 // // PLAYER ANIMATIONS
 // let player;

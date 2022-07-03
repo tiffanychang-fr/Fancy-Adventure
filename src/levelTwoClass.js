@@ -3,12 +3,16 @@ class LevelTwo {
     this.background = new Background();
     this.map = new Map();
     this.player = new Player();
+    this.treasures = new Treasure();
     this.fruits = new Fruits();
     this.enemies = new Enemies();
-    this.amountOfFruit = 0;
+    this.amountOfFruits = 0;
     this.amountOfLives = 3;
+    this.amountOfCoins = 0;
     this.positionX = 0;
     this.positionY = 13;
+    this.gameJustStarted = true;
+    this.hasDiedfromCurrentLevel = false;
     this.isCollidingLeftWall = false;
     this.isCollidingTopWall = false;
     this.isCollidingRightWall = false;
@@ -19,6 +23,7 @@ class LevelTwo {
   preload() {
     this.background.preload();
     this.player.preload();
+    this.treasures.preload();
     this.fruits.preload();
     this.enemies.preload();
   }
@@ -27,12 +32,20 @@ class LevelTwo {
     this.background.drawBackground("level 2");
     this.drawGrid(); // only for checking the tile position
     this.player.drawPlayer();
-    // this.fruits.drawFruits();
-    // this.enemies.drawEnemies();
+    this.treasures.drawTreasures();
+    this.fruits.drawFruits();
+    this.enemies.drawEnemies();
+    // this.amountOfFruits = 0;
+    // FRUIT_COLLECTION.innerText = this.amountOfFruits;
+    this.start();
+    setTimeout(() => {
+      this.gameJustStarted = false;
+    }, 1000);
     this.restart();
 
     // Player-Platform Collision check
     this.TileTypeCheck(this.player);
+    this.isCollidingTreasure(this.player, this.treasures);
     this.isCollidingFruit(this.player, this.fruits);
     this.isCollidingEnemy(this.player, this.enemies);
     this.isCollidingWater(this.player);
@@ -40,13 +53,29 @@ class LevelTwo {
     this.player.movePlayer(this.isCollidingLeftWall, this.isCollidingRightWall);
   }
 
+  start() {
+    if (this.gameJustStarted == true && this.hasDiedfromCurrentLevel == false) {
+      this.amountOfCoins = 0;
+      this.amountOfFruits = 0;
+      COIN.innerText = this.amountOfCoins;
+      FRUIT_COLLECTION.innerText = this.amountOfFruits;
+      RICHNESS.innerText = ``;
+      MISSION_COMPLETED.innerText = ``;
+    }
+  }
+
   restart() {
     if (this.amountOfLives == 0) {
-      this.amountOfFruit = 0;
+      MISSION.innerText = `GAME OVER...💫 Do you want to restart❓ ✖ / ✔ `;
+    } else if (this.amountOfLives < 0) {
+      this.amountOfCoins = 0;
+      this.amountOfFruits = 0;
       this.amountOfLives = 3;
-      FRUIT_COLLECTION.innerText = this.amountOfFruit;
+      COIN.innerText = this.amountOfCoins;
+      FRUIT_COLLECTION.innerText = this.amountOfFruits;
       LIFE.innerText = this.amountOfLives;
-      LEVEL1_RULE.innerText = ``;
+      RICHNESS.innerText = ``;
+      MISSION_COMPLETED.innerText = ``;
     }
   }
 
@@ -140,19 +169,42 @@ class LevelTwo {
     }
   }
 
+  // collect coins
+  isCollidingTreasure(player, treasures) {
+    treasures.coin_levelTwo.forEach((coin, index) => {
+      if (
+        player.x >= coin.x - (1 / 2) * SQUARE_SIDE &&
+        player.x <= coin.x + (1 / 2) * SQUARE_SIDE &&
+        player.y >= coin.y - (1 / 2) * SQUARE_SIDE &&
+        player.y <= coin.y + (1 / 2) * SQUARE_SIDE
+      ) {
+        treasures.coin_levelTwo.splice(index, 1);
+        this.amountOfCoins++;
+        COIN.innerText = this.amountOfCoins;
+        if (this.amountOfCoins == 3) {
+          RICHNESS.innerText = ` 💲`;
+        } else if (this.amountOfCoins == 6) {
+          RICHNESS.innerText = ` 💲💲`;
+        } else if (this.amountOfCoins == 10) {
+          RICHNESS.innerText = ` 💲💲💲`;
+        }
+      }
+    });
+  }
+
   // collect fruits
   isCollidingFruit(player, fruits) {
-    fruits.fruitArray_levelOne.forEach((fruit, index) => {
+    fruits.fruitArray_levelTwo.forEach((fruit, index) => {
       if (
         player.x >= fruit.x - (1 / 2) * SQUARE_SIDE &&
         player.x <= fruit.x + (1 / 2) * SQUARE_SIDE &&
         player.y >= fruit.y - (1 / 2) * SQUARE_SIDE &&
         player.y <= fruit.y + (1 / 2) * SQUARE_SIDE
       ) {
-        fruits.fruitArray_levelOne.splice(index, 1);
-        this.amountOfFruit++;
-        FRUIT_COLLECTION.innerText = this.amountOfFruit;
-        if (this.amountOfFruit >= 1) {
+        fruits.fruitArray_levelTwo.splice(index, 1);
+        this.amountOfFruits++;
+        FRUIT_COLLECTION.innerText = this.amountOfFruits;
+        if (this.amountOfFruits >= 10) {
           MISSION_COMPLETED.innerText = ` ✅`;
           this.missionCompleted = true;
         } else {
@@ -163,7 +215,7 @@ class LevelTwo {
   }
 
   isCollidingEnemy(player, enemies) {
-    enemies.enemyArray_levelOne.forEach((enemy, index) => {
+    enemies.enemyArray_levelTwo.forEach((enemy, index) => {
       if (
         player.x >= enemy.x - (1 / 2) * SQUARE_SIDE &&
         player.x <= enemy.x + (1 / 2) * SQUARE_SIDE &&
@@ -174,6 +226,7 @@ class LevelTwo {
         player.y = STARTING_FLOOR;
         this.amountOfLives--;
         LIFE.innerText = this.amountOfLives;
+        this.hasDiedfromCurrentLevel = true;
         player.resurrect();
       }
     });

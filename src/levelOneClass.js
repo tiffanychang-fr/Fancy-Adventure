@@ -3,9 +3,11 @@ class LevelOne {
     this.background = new Background();
     this.map = new Map();
     this.player = new Player();
+    this.treasures = new Treasure();
     this.fruits = new Fruits();
     this.enemies = new Enemies();
-    this.amountOfFruit = 0;
+    this.amountOfCoins = 0;
+    this.amountOfFruits = 0;
     this.amountOfLives = 3;
     this.positionX = 0;
     this.positionY = 13;
@@ -19,6 +21,7 @@ class LevelOne {
   preload() {
     this.background.preload();
     this.player.preload();
+    this.treasures.preload();
     this.fruits.preload();
     this.enemies.preload();
   }
@@ -27,12 +30,14 @@ class LevelOne {
     this.background.drawBackground("level 1");
     this.drawGrid(); // only for checking the tile position
     this.player.drawPlayer();
+    this.treasures.drawTreasures();
     this.fruits.drawFruits();
     this.enemies.drawEnemies();
     this.restart();
 
     // Player-Platform Collision check
     this.TileTypeCheck(this.player);
+    this.isCollidingTreasure(this.player, this.treasures);
     this.isCollidingFruit(this.player, this.fruits);
     this.isCollidingEnemy(this.player, this.enemies);
     this.isCollidingWater(this.player);
@@ -42,11 +47,16 @@ class LevelOne {
 
   restart() {
     if (this.amountOfLives == 0) {
-      this.amountOfFruit = 0;
+      MISSION.innerText = `GAME OVER...💫 Do you want to restart❓ ✖ / ✔ `;
+    } else if (this.amountOfLives < 0) {
+      this.amountOfCoins = 0;
+      this.amountOfFruits = 0;
       this.amountOfLives = 3;
-      FRUIT_COLLECTION.innerText = this.amountOfFruit;
+      COIN.innerText = this.amountOfCoins;
+      FRUIT_COLLECTION.innerText = this.amountOfFruits;
       LIFE.innerText = this.amountOfLives;
-      LEVEL1_RULE.innerText = ``;
+      RICHNESS.innerText = ``;
+      MISSION_COMPLETED.innerText = ``;
     }
   }
 
@@ -140,6 +150,29 @@ class LevelOne {
     }
   }
 
+  // collect coins
+  isCollidingTreasure(player, treasures) {
+    treasures.coin_levelOne.forEach((coin, index) => {
+      if (
+        player.x >= coin.x - (1 / 2) * SQUARE_SIDE &&
+        player.x <= coin.x + (1 / 2) * SQUARE_SIDE &&
+        player.y >= coin.y - (1 / 2) * SQUARE_SIDE &&
+        player.y <= coin.y + (1 / 2) * SQUARE_SIDE
+      ) {
+        treasures.coin_levelOne.splice(index, 1);
+        this.amountOfCoins++;
+        COIN.innerText = this.amountOfCoins;
+        if (this.amountOfCoins == 3) {
+          RICHNESS.innerText = ` 💲`;
+        } else if (this.amountOfCoins == 6) {
+          RICHNESS.innerText = ` 💲💲`;
+        } else if (this.amountOfCoins == 10) {
+          RICHNESS.innerText = ` 💲💲💲`;
+        }
+      }
+    });
+  }
+
   // collect fruits
   isCollidingFruit(player, fruits) {
     fruits.fruitArray_levelOne.forEach((fruit, index) => {
@@ -150,9 +183,9 @@ class LevelOne {
         player.y <= fruit.y + (1 / 2) * SQUARE_SIDE
       ) {
         fruits.fruitArray_levelOne.splice(index, 1);
-        this.amountOfFruit++;
-        FRUIT_COLLECTION.innerText = this.amountOfFruit;
-        if (this.amountOfFruit >= 1) {
+        this.amountOfFruits++;
+        FRUIT_COLLECTION.innerText = this.amountOfFruits;
+        if (this.amountOfFruits >= 6) {
           MISSION_COMPLETED.innerText = ` ✅`;
           this.missionCompleted = true;
         } else {
