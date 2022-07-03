@@ -1,4 +1,4 @@
-class LevelTwo {
+class LevelThree {
   constructor() {
     this.background = new Background();
     this.map = new Map();
@@ -29,7 +29,7 @@ class LevelTwo {
   }
 
   play() {
-    this.background.drawBackground("level 2");
+    this.background.drawBackground("level 3");
     this.drawGrid(); // only for checking the tile position
     this.player.drawPlayer();
     this.treasures.drawTreasures();
@@ -109,7 +109,7 @@ class LevelTwo {
   TileTypeCheck(player) {
     this.positionX = Math.floor(player.rightFoot / SQUARE_SIDE);
     this.positionY = Math.floor(player.y / SQUARE_SIDE);
-    let tileType = this.map.levelTwoTiles[this.positionX][this.positionY];
+    let tileType = this.map.levelThreeTiles[this.positionX][this.positionY];
 
     // 0: can fall; 1: can land on; 2: cannot jump through
     if (tileType == 0) {
@@ -134,7 +134,7 @@ class LevelTwo {
         if (
           this.isCollidingRightWall &&
           this.positionX - 1 !== "undefined" &&
-          this.map.levelTwoTiles[this.positionX - 1][this.positionY] == 1
+          this.map.levelThreeTiles[this.positionX - 1][this.positionY] == 1
         ) {
           this.landOnPlatform(player, this.positionY);
         }
@@ -152,7 +152,7 @@ class LevelTwo {
         if (
           this.isCollidingLeftWall &&
           this.positionX + 1 !== "undefined" &&
-          this.map.levelTwoTiles[this.positionX + 1][this.positionY] == 1
+          this.map.levelThreeTiles[this.positionX + 1][this.positionY] == 1
         ) {
           this.landOnPlatform(player, this.positionY);
         }
@@ -171,14 +171,14 @@ class LevelTwo {
 
   // collect coins
   isCollidingTreasure(player, treasures) {
-    treasures.coin_levelTwo.forEach((coin, index) => {
+    treasures.coin_levelThree.forEach((coin, index) => {
       if (
         player.x >= coin.x - (1 / 2) * SQUARE_SIDE &&
         player.x <= coin.x + (1 / 2) * SQUARE_SIDE &&
         player.y >= coin.y - (1 / 2) * SQUARE_SIDE &&
         player.y <= coin.y + (1 / 2) * SQUARE_SIDE
       ) {
-        treasures.coin_levelTwo.splice(index, 1);
+        treasures.coin_levelThree.splice(index, 1);
         this.amountOfCoins++;
         COIN.innerText = this.amountOfCoins;
         if (this.amountOfCoins == 3) {
@@ -194,17 +194,17 @@ class LevelTwo {
 
   // collect fruits
   isCollidingFruit(player, fruits) {
-    fruits.fruitArray_levelTwo.forEach((fruit, index) => {
+    fruits.fruitArray_levelThree.forEach((fruit, index) => {
       if (
         player.x >= fruit.x - (1 / 2) * SQUARE_SIDE &&
         player.x <= fruit.x + (1 / 2) * SQUARE_SIDE &&
         player.y >= fruit.y - (1 / 2) * SQUARE_SIDE &&
         player.y <= fruit.y + (1 / 2) * SQUARE_SIDE
       ) {
-        fruits.fruitArray_levelTwo.splice(index, 1);
+        fruits.fruitArray_levelThree.splice(index, 1);
         this.amountOfFruits++;
         FRUIT_COLLECTION.innerText = this.amountOfFruits;
-        if (this.amountOfFruits >= 5) {
+        if (this.amountOfFruits >= 6) {
           MISSION_COMPLETED.innerText = ` ✅`;
           this.missionCompleted = true;
         } else {
@@ -215,7 +215,7 @@ class LevelTwo {
   }
 
   isCollidingEnemy(player, enemies) {
-    enemies.enemyArray_levelTwo.forEach((enemy, index) => {
+    enemies.enemyArray_levelThree.forEach((enemy, index) => {
       if (
         player.x >= enemy.x - (1 / 2) * SQUARE_SIDE &&
         player.x <= enemy.x + (1 / 2) * SQUARE_SIDE &&

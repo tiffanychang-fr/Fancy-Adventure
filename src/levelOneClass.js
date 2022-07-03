@@ -185,7 +185,7 @@ class LevelOne {
         fruits.fruitArray_levelOne.splice(index, 1);
         this.amountOfFruits++;
         FRUIT_COLLECTION.innerText = this.amountOfFruits;
-        if (this.amountOfFruits >= 6) {
+        if (this.amountOfFruits >= 3) {
           MISSION_COMPLETED.innerText = ` ✅`;
           this.missionCompleted = true;
         } else {
