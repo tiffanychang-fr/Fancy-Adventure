@@ -6,6 +6,7 @@ class LevelOne {
     this.treasures = new Treasure();
     this.fruits = new Fruits();
     this.enemies = new Enemies();
+    this.flag = new Flag();
     this.amountOfCoins = 0;
     this.amountOfFruits = 0;
     this.amountOfLives = 3;
@@ -34,6 +35,10 @@ class LevelOne {
     this.fruits.drawFruits();
     this.enemies.drawEnemies();
     this.restart();
+    // show red flag when mission of the level is finished
+    if (this.missionCompleted == true) {
+      this.flag.showFlag();
+    }
 
     // Player-Platform Collision check
     this.TileTypeCheck(this.player);
