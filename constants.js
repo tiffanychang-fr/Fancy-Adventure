@@ -31,14 +31,15 @@ const FRUIT_COLLECTION = document.querySelector(".fruit-collection span");
 // LIFE
 const LIFE = document.querySelector(".life span");
 
+// SOUND BUTTON
+let volume = 0;
+let bgm;
+const soundButton = document.querySelector(".soundButton");
+
 // SUBTITLE
 MISSION = document.querySelector(".mission b");
 RICHNESS = document.querySelector(".mission .coin-emoji");
 MISSION_COMPLETED = document.querySelector(".mission .mission-completed-emoji");
-
-// // PLAYER ANIMATIONS
-// let player;
-// let playerAnimation;
 
 // // OBJECT ANIMATIONS
 let coin;

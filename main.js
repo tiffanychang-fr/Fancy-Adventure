@@ -44,6 +44,7 @@ function draw() {
     level = "level 4";
   }
 
+  // play the game by level
   if (level === "level 1") {
     levelOne.play();
   } else if (level === "level 2") {
@@ -60,6 +61,7 @@ function preload() {
   levelTwo.preload();
   levelThree.preload();
   levelFour.preload();
+  bgm = loadSound("assets/music/letsGo.mp3");
 }
 
 function keyPressed() {
@@ -68,3 +70,22 @@ function keyPressed() {
   levelThree.keyPressed();
   levelFour.keyPressed();
 }
+
+// Background Music Event
+soundButton.addEventListener("click", () => {
+  if (volume === 0) {
+    soundButton.innerHTML = '<i class="fa-solid fa-volume-low"></i>';
+    volume = 0.1;
+    bgm.loop();
+    bgm.play();
+    bgm.setVolume(volume);
+  } else if (volume === 0.1) {
+    soundButton.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+    volume = 0.2;
+    bgm.setVolume(volume);
+  } else if (volume === 0.2) {
+    soundButton.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+    volume = 0;
+    bgm.stop();
+  }
+});
