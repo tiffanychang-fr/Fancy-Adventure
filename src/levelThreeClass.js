@@ -72,22 +72,25 @@ class LevelThree {
 
   restart() {
     if (this.amountOfLives == 0) {
-      MISSION.innerText = `GAME OVER...💫 Do you want to restart❓ Tap ENTER to restart `;
+      MISSION.innerText = `GAME OVER...💫 Do you want to restart❓ Press ENTER to restart `;
       RICHNESS.innerText = ``;
       MISSION_COMPLETED.innerText = ``;
       this.player.freeze();
+      this.reset();
+    }
+  }
 
-      if (keyCode === ENTER_KEY) {
-        this.player.unfreeze();
-        this.fruits.restart();
-        this.treasures.restart();
-        this.amountOfCoins = 0;
-        this.amountOfFruits = 0;
-        this.amountOfLives = 3;
-        COIN.innerText = this.amountOfCoins;
-        FRUIT_COLLECTION.innerText = this.amountOfFruits;
-        LIFE.innerText = this.amountOfLives;
-      }
+  reset() {
+    if (keyCode === ENTER_KEY) {
+      this.player.unfreeze();
+      this.fruits.restart();
+      this.treasures.restart();
+      this.amountOfCoins = 0;
+      this.amountOfFruits = 0;
+      this.amountOfLives = 3;
+      COIN.innerText = this.amountOfCoins;
+      FRUIT_COLLECTION.innerText = this.amountOfFruits;
+      LIFE.innerText = this.amountOfLives;
     }
   }
 

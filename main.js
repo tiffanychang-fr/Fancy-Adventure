@@ -4,12 +4,6 @@ const levelTwo = new LevelTwo();
 const levelThree = new LevelThree();
 const levelFour = new LevelFour();
 
-// Initializing the level
-let levelOneCompleted = false;
-let levelTwoCompleted = false;
-let levelThreeCompleted = false;
-let levelFourCompleted = false;
-
 function setup() {
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
   // restartButton = createButton("Restart");
@@ -32,18 +26,42 @@ function draw() {
 
   // Level 1: If the player completes mission and touch the win points then move on to level 2
   if (levelOne.missionCompleted == true && levelOne.reachWinPoint == true) {
-    levelOneCompleted = true;
     level = "level 2";
   }
 
   if (levelTwo.missionCompleted == true && levelTwo.reachWinPoint == true) {
-    levelOneCompleted = true;
     level = "level 3";
   }
 
   if (levelThree.missionCompleted == true && levelThree.reachWinPoint == true) {
-    levelOneCompleted = true;
     level = "level 4";
+  }
+
+  // Restart from level 1
+  if (levelFour.missionCompleted == true) {
+    if (keyCode === ENTER_KEY) {
+      level = "level 1";
+
+      levelOne.reset();
+      levelOne.player.resurrect();
+      levelOne.missionCompleted = false;
+      levelOne.reachWinPoint = false;
+
+      levelTwo.reset();
+      levelTwo.player.resurrect();
+      levelTwo.missionCompleted = false;
+      levelTwo.reachWinPoint = false;
+
+      levelThree.reset();
+      levelThree.player.resurrect();
+      levelThree.missionCompleted = false;
+      levelThree.reachWinPoint = false;
+
+      levelFour.reset();
+      levelFour.player.resurrect();
+      levelFour.missionCompleted = false;
+      levelFour.reachWinPoint = false;
+    }
   }
 
   // play the game by level
