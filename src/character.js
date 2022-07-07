@@ -9,6 +9,7 @@ class Player {
     this.bodyMiddle = (1 / 2) * SQUARE_SIDE;
     this.velocity = 0;
     this.floor = STARTING_FLOOR;
+    this.isFrozen = false;
   }
 
   preload() {
@@ -44,6 +45,10 @@ class Player {
   }
 
   movePlayer(isCollidingLefttWall, isCollidingRightWall) {
+    if (this.isFrozen) {
+      return;
+    }
+
     if (this.x < -7) {
       this.x = -7;
     } else if (this.x > CANVAS_WIDTH - 40) {
@@ -58,6 +63,10 @@ class Player {
   }
 
   jump() {
+    if (this.isFrozen) {
+      return;
+    }
+
     if (this.jumpCount === 2) {
       return;
     }
@@ -65,10 +74,17 @@ class Player {
     this.velocity -= 6;
     this.jumpCount++;
   }
-  // console.log(this.velocity);
 
   ReachedTheGround() {
     return this.y >= this.floor;
+  }
+
+  freeze() {
+    this.isFrozen = true;
+  }
+
+  unfreeze() {
+    this.isFrozen = false;
   }
 
   resurrect() {

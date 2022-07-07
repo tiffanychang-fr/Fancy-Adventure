@@ -75,8 +75,10 @@ class LevelThree {
       MISSION.innerText = `GAME OVER...💫 Do you want to restart❓ Tap ENTER to restart `;
       RICHNESS.innerText = ``;
       MISSION_COMPLETED.innerText = ``;
+      this.player.freeze();
 
       if (keyCode === ENTER_KEY) {
+        this.player.unfreeze();
         this.fruits.restart();
         this.treasures.restart();
         this.amountOfCoins = 0;
