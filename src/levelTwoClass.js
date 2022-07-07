@@ -73,6 +73,8 @@ class LevelTwo {
     if (this.amountOfLives == 0) {
       MISSION.innerText = `GAME OVER...💫 Do you want to restart❓ ✖ / ✔ `;
     } else if (this.amountOfLives < 0) {
+      this.fruits.restart();
+      this.treasures.restart();
       this.amountOfCoins = 0;
       this.amountOfFruits = 0;
       this.amountOfLives = 3;
@@ -174,6 +176,16 @@ class LevelTwo {
     }
   }
 
+  // Check if level mission is completed
+  missionCompletedCheck() {
+    if (this.amountOfFruits >= 5 && this.amountOfCoins >= 3) {
+      MISSION_COMPLETED.innerText = ` ✅`;
+      this.missionCompleted = true;
+    } else {
+      this.missionCompleted = false;
+    }
+  }
+
   // collect coins
   isCollidingTreasure(player, treasures) {
     treasures.coin_levelTwo.forEach((coin, index) => {
@@ -209,12 +221,6 @@ class LevelTwo {
         fruits.fruitArray_levelTwo.splice(index, 1);
         this.amountOfFruits++;
         FRUIT_COLLECTION.innerText = this.amountOfFruits;
-        if (this.amountOfFruits >= 5) {
-          MISSION_COMPLETED.innerText = ` ✅`;
-          this.missionCompleted = true;
-        } else {
-          this.missionCompleted = false;
-        }
       }
     });
   }

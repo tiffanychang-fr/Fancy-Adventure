@@ -46,6 +46,9 @@ class LevelFour {
     // show red flag when mission of the level is finished
     if (this.missionCompleted == true) {
       this.flag.congrats();
+      MISSION.innerText = `👑 CONGRATS, You've completed all the levels. Hope you have enjoyed the adventure with us ✨`;
+      RICHNESS.innerText = ``;
+      MISSION_COMPLETED.innerText = ``;
     }
 
     // Player-Platform Collision check
@@ -73,6 +76,8 @@ class LevelFour {
     if (this.amountOfLives == 0) {
       MISSION.innerText = `GAME OVER...💫 Do you want to restart❓ ✖ / ✔ `;
     } else if (this.amountOfLives < 0) {
+      this.fruits.restart();
+      this.treasures.restart();
       this.amountOfCoins = 0;
       this.amountOfFruits = 0;
       this.amountOfLives = 3;
@@ -174,6 +179,16 @@ class LevelFour {
     }
   }
 
+  // Check if level mission is completed
+  missionCompletedCheck() {
+    if (this.amountOfFruits >= 8 && this.amountOfCoins >= 8) {
+      MISSION_COMPLETED.innerText = ` ✅`;
+      this.missionCompleted = true;
+    } else {
+      this.missionCompleted = false;
+    }
+  }
+
   // collect coins
   isCollidingTreasure(player, treasures) {
     treasures.coin_levelFour.forEach((coin, index) => {
@@ -209,12 +224,6 @@ class LevelFour {
         fruits.fruitArray_levelFour.splice(index, 1);
         this.amountOfFruits++;
         FRUIT_COLLECTION.innerText = this.amountOfFruits;
-        if (this.amountOfFruits >= 8) {
-          MISSION_COMPLETED.innerText = ` ✅`;
-          this.missionCompleted = true;
-        } else {
-          this.missionCompleted = false;
-        }
       }
     });
   }
