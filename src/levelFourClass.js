@@ -75,18 +75,20 @@ class LevelFour {
 
   restart() {
     if (this.amountOfLives == 0) {
-      MISSION.innerText = `GAME OVER...💫 Do you want to restart❓ ✖ / ✔ `;
-    } else if (this.amountOfLives < 0) {
-      this.fruits.restart();
-      this.treasures.restart();
-      this.amountOfCoins = 0;
-      this.amountOfFruits = 0;
-      this.amountOfLives = 3;
-      COIN.innerText = this.amountOfCoins;
-      FRUIT_COLLECTION.innerText = this.amountOfFruits;
-      LIFE.innerText = this.amountOfLives;
+      MISSION.innerText = `GAME OVER...💫 Do you want to restart❓ Tap ENTER to restart `;
       RICHNESS.innerText = ``;
       MISSION_COMPLETED.innerText = ``;
+
+      if (keyCode === ENTER_KEY) {
+        this.fruits.restart();
+        this.treasures.restart();
+        this.amountOfCoins = 0;
+        this.amountOfFruits = 0;
+        this.amountOfLives = 3;
+        COIN.innerText = this.amountOfCoins;
+        FRUIT_COLLECTION.innerText = this.amountOfFruits;
+        LIFE.innerText = this.amountOfLives;
+      }
     }
   }
 
@@ -239,7 +241,9 @@ class LevelFour {
       ) {
         player.x = 0;
         player.y = STARTING_FLOOR;
-        this.amountOfLives--;
+        if (this.amountOfLives > 0) {
+          this.amountOfLives--;
+        }
         LIFE.innerText = this.amountOfLives;
         this.hasDiedfromCurrentLevel = true;
         player.resurrect();
@@ -250,7 +254,9 @@ class LevelFour {
   isCollidingWater(player) {
     if (player.y > WATER_FLOOR - SQUARE_SIDE) {
       player.velocity = 0;
-      this.amountOfLives--;
+      if (this.amountOfLives > 0) {
+        this.amountOfLives--;
+      }
       LIFE.innerText = this.amountOfLives;
       player.resurrect();
     }

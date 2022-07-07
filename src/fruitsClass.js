@@ -39,7 +39,7 @@ class Fruits {
 
     this.fruitArray_levelTwo.push(this.grape_2);
     this.fruitArray_levelTwo.push(this.grape2_2);
-    this.fruitArray_levelTwo.push(this.grape2_2);
+    this.fruitArray_levelTwo.push(this.purple_grape_2);
     this.fruitArray_levelTwo.push(this.green_grape_2);
     this.fruitArray_levelTwo.push(this.pear_2);
     this.fruitArray_levelTwo.push(this.pear2_2);
@@ -136,8 +136,8 @@ class Fruits {
     this.fruitArray_levelTwo = [];
 
     this.fruitArray_levelTwo.push(this.grape_2);
-    this.fruitArray_levelTwo.push(this.grape2);
     this.fruitArray_levelTwo.push(this.grape2_2);
+    this.fruitArray_levelTwo.push(this.purple_grape_2);
     this.fruitArray_levelTwo.push(this.green_grape_2);
     this.fruitArray_levelTwo.push(this.pear_2);
     this.fruitArray_levelTwo.push(this.pear2_2);

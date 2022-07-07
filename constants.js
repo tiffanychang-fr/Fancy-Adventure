@@ -41,6 +41,8 @@ MISSION = document.querySelector(".mission b");
 RICHNESS = document.querySelector(".mission .coin-emoji");
 MISSION_COMPLETED = document.querySelector(".mission .mission-completed-emoji");
 
-// // OBJECT ANIMATIONS
-let coin;
-let coinAnimation;
+// OBJECT ANIMATIONS
+// let coin;
+// let coinAnimation;
+
+// let restartButton;

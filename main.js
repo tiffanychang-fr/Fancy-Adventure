@@ -11,7 +11,9 @@ let levelThreeCompleted = false;
 let levelFourCompleted = false;
 
 function setup() {
-  const cnv = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+  createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+  // restartButton = createButton("Restart");
+  // restartButton.position(0, 0);
 }
 
 function draw() {
