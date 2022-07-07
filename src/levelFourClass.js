@@ -53,6 +53,7 @@ class LevelFour {
 
     // Player-Platform Collision check
     this.TileTypeCheck(this.player);
+    this.missionCompletedCheck();
     this.isCollidingTreasure(this.player, this.treasures);
     this.isCollidingFruit(this.player, this.fruits);
     this.isCollidingEnemy(this.player, this.enemies);
