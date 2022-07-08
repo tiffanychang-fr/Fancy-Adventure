@@ -70,9 +70,11 @@ class Player {
     if (this.jumpCount === 2) {
       return;
     }
-    this.y -= 50;
-    this.velocity -= 6;
-    this.jumpCount++;
+    if (this.y >= 0) {
+      this.y -= 50;
+      this.velocity -= 6;
+      this.jumpCount++;
+    }
   }
 
   ReachedTheGround() {

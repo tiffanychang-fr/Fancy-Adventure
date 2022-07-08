@@ -43,22 +43,22 @@ function draw() {
       level = "level 1";
 
       levelOne.reset();
-      levelOne.player.resurrect();
+      levelOne.level.player.resurrect();
       levelOne.missionCompleted = false;
       levelOne.reachWinPoint = false;
 
       levelTwo.reset();
-      levelTwo.player.resurrect();
+      levelTwo.level.player.resurrect();
       levelTwo.missionCompleted = false;
       levelTwo.reachWinPoint = false;
 
       levelThree.reset();
-      levelThree.player.resurrect();
+      levelThree.level.player.resurrect();
       levelThree.missionCompleted = false;
       levelThree.reachWinPoint = false;
 
       levelFour.reset();
-      levelFour.player.resurrect();
+      levelFour.level.player.resurrect();
       levelFour.missionCompleted = false;
       levelFour.reachWinPoint = false;
     }
