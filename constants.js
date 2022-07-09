@@ -37,7 +37,8 @@ let bgm;
 const soundButton = document.querySelector(".soundButton");
 
 // SUBTITLE
-MISSION = document.querySelector(".mission b");
+INSTRUCTION = document.querySelector(".player-instruction");
+MISSION = document.querySelector(".mission-info");
 RICHNESS = document.querySelector(".mission .coin-emoji");
 MISSION_COMPLETED = document.querySelector(".mission .mission-completed-emoji");
 

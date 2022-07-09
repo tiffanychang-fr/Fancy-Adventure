@@ -15,7 +15,12 @@ function draw() {
 
   // Level Missions
   if (level === "level 1") {
-    MISSION.innerText = `Mission 1 : Collect at least 3 fruits and 3 coins. Do not touch the balloons.`;
+    setTimeout(() => {
+      INSTRUCTION.style.display = "none";
+    }, 5000);
+    setTimeout(() => {
+      MISSION.innerText = `Mission 1 : Collect at least 3 fruits and 3 coins. Do not touch the balloons.`;
+    }, 5000);
   } else if (level === "level 2") {
     MISSION.innerText = `Mission 2 : Collect 5 fruits and 3 coins. Do not touch the balloons.`;
   } else if (level === "level 3") {

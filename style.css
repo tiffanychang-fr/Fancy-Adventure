@@ -52,6 +52,33 @@ h1 {
   margin: 0;
 }
 
+.player-instruction {
+  color: #9eb23b;
+  animation-name: player-instruction;
+  animation-duration: 5s;
+}
+
+@keyframes player-instruction {
+  0% {
+    color: indianred;
+  }
+  20% {
+    color: orange;
+  }
+  40% {
+    color: palevioletred;
+  }
+  60% {
+    color: dodgerblue;
+  }
+  80% {
+    color: darkcyan;
+  }
+  100% {
+    color: #9eb23b;
+  }
+}
+
 .footer {
   font-size: 2rem;
   margin-top: 1rem;
